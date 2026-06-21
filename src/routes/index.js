@@ -10,3 +10,4 @@ router.post("/pg/deletion/:id",controller.pgfinddeletebyid)
 router.put("/pg/update/:id",controller.updatePgById)
 
 module.exports = router;
+console.log('changes applied');
