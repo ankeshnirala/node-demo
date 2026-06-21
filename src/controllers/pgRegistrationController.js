@@ -27,8 +27,8 @@ const pgListAllController = async (req, res) => {
   }
 };
 
-const pgViewController = () => async (req, res) => {
-};
+// const pgViewController = () => async (req, res) => {
+// };
 const pgfinddbyid = async (req, res) => {
   try {
     const { id } = req.params;
@@ -70,7 +70,6 @@ const updatePgById = async (req, res) => {
 
 module.exports = {
   pgRegistrationController,
-  pgViewController,
   pgListAllController,
   pgfinddbyid,
   pgfinddeletebyid,
