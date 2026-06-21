@@ -1,12 +1,12 @@
 const express = require("express");
-const app = require("express")();
 const mongoose = require("mongoose");
-
-const pgRegistrationRouter = require("./src/routes/index");
+const app = express();
 const pgPostRequestBodyValidator = require("./src/middleware/requestValidator");
 
+const pgRegistrationRouter = require("./src/routes/index");
+
 app.use(express.json());
-app.use("/", pgPostRequestBodyValidator, pgRegistrationRouter);
+app.use("/", pgRegistrationRouter);
 
 mongoose
   .connect(

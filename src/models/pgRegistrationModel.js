@@ -10,8 +10,8 @@ const registationSchema = new mongoose.Schema({
   pg_type: { default: "MALE", type: String },
   pg_state: String,
   pg_country: String,
-  pg_latitude: String,
-  pg_longitude: String,
+  pg_latitude: Number,
+  pg_longitude: Number,
 });
 
 const RegistrationModel = mongoose.model("pg-registation", registationSchema);
