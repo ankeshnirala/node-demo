@@ -1,25 +1,31 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
-const pgPostRequestBodyValidator = require("./src/middleware/requestValidator");
 
-const pgRegistrationRouter = require("./src/routes/index");
+const adminRouter = require("./src/routes/admin.routes.js");
+const signupRouter = require("./src/routes/register.routes.js");
+const pgRouter = require("./src/routes/pg.routes.js");
+const { authenticationMiddleware } = require("./src/middleware/authMiddleware.js");
+
+const dotenv = require('dotenv');
+dotenv.config();
+
+const PORT = process.env.PORT || 3005;
 
 app.use(express.json());
-app.use("/", pgRegistrationRouter);
+app.use(authenticationMiddleware);
+app.use("/auth", signupRouter);
+app.use("/admin", adminRouter);
+app.use("/pg", pgRouter);
 
-mongoose
-  .connect(
-    "mongodb+srv://ankesh:ankesh123@ankesh.g5iur.mongodb.net/?appName=ankesh",
-    { dbName: "test-db" },
-  )
+const connectiondb = require('./connection');
+
+connectiondb()
   .then(() => {
-    console.log("database connected succesfully!!");
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
   })
-  .catch((err) => {
-    console.log("database connection error: ", err);
+  .catch((error) => {
+    console.error('MongoDB connection failed:', error.message);
+    process.exit(1);
   });
-
-app.listen(3005, () => {
-  console.log(`Application is running on http://localhost:3005`);
-});
